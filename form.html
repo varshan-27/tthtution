@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Student Registration - Trichy Home Tuition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+  font-family:'Roboto', sans-serif; 
+  background: url(https://edu-websites.co.uk/wp-content/uploads/2019/10/10-things-to-include-on-your-school-website.jpg) no-repeat center center fixed; 
+  background-size: cover;
+  margin:0; 
+  padding:0; 
+  display:flex; 
+  justify-content:center; 
+  align-items:flex-start; 
+  min-height:100vh; 
+}
+
+.container { 
+  background: rgba(255, 255, 255, 0.85); /* semi-transparent white */
+  max-width:550px; 
+  width:100%; 
+  margin:50px auto; 
+  padding:35px; 
+  border-radius:15px; 
+  box-shadow:0 8px 25px rgba(0,0,0,0.1); 
+  backdrop-filter: blur(8px); /* optional: soft blur effect */
+}    h1 { text-align:center; color:#3f51b5; margin-bottom:30px; }
+    label { display:block; margin-bottom:5px; font-weight:500; color:#333; }
+    input, textarea, select { width:100%; padding:12px 10px; margin-bottom:20px; border:1px solid #ccc; border-radius:8px; font-size:1em; }
+    textarea { resize: vertical; }
+    button { background:#4f63f4; color:white; padding:12px 25px; border:none; border-radius:8px; font-size:1em; font-weight:bold; cursor:pointer; transition:all 0.3s; width:100%; }
+    button:hover { background:#3f51b5; transform:scale(1.02); }
+    .success { background:#d4edda; color:#155724; padding:10px 15px; border-radius:8px; margin-bottom:15px; border:1px solid #c3e6cb; display:none; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Offline Student Registration</h1>
+  <div class="success" id="successMsg">Registration Successful!</div>
+  <form id="registrationForm">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" placeholder="Your full name" required>
+
+    <label for="email">Email (Gmail only)</label>
+    <input type="email" id="email" placeholder="abc@gmail.com" required>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" placeholder="9876543210" required pattern="[0-9]{10}">
+
+    <label for="studentClass">Class / Grade</label>
+    <input type="text" id="studentClass" placeholder="e.g. 10th, 12th" required>
+
+    <label for="schoolName">School Name</label>
+    <input type="text" id="schoolName" placeholder="Your school name" required>
+
+    <label for="board">Board</label>
+    <select id="board" required>
+      <option value="">Select Board</option>
+      <option value="State Board">State Board</option>
+      <option value="CBSE">CBSE</option>
+      <option value="ICSE">ICSE</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label for="address">Address</label>
+    <textarea id="address" placeholder="Enter your full address" rows="3" required></textarea>
+
+    <input type="hidden" id="mode" value="offline">
+
+    <button type="submit">Register</button>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('registrationForm');
+  const successMsg = document.getElementById('successMsg');
+
+ form.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const studentClass = document.getElementById('studentClass').value.trim();
+  const schoolName = document.getElementById('schoolName').value.trim();
+  const board = document.getElementById('board').value;
+  const address = document.getElementById('address').value.trim();
+  const mode = document.getElementById('mode').value;
+
+  if(!email.endsWith("@gmail.com")){
+    alert("Please enter a valid Gmail address");
+    return;
+  }
+
+  let registrations = JSON.parse(localStorage.getItem('registrations') || "[]");
+
+  registrations.push({name, email, phone, studentClass, schoolName, board, address, mode, date: new Date().toLocaleString()});
+  localStorage.setItem('registrations', JSON.stringify(registrations));
+
+  successMsg.style.display = 'block';
+
+  // Redirect after 2 seconds to the first/main page
+  setTimeout(()=>{
+    successMsg.style.display = 'none';
+    window.location.href = "index.html"; // <- replace with your main page path
+  }, 2000);
+
+  form.reset();
+});
+
+
+</script>
+
+</body>
+</html>
+

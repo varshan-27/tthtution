@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutor Registration</title>
+  <style>
+    body { 
+      font-family:'Roboto', sans-serif; 
+      background: url('https://previews.123rf.com/images/garagestock/garagestock1608/garagestock160810621/61549378-tutoring-chart-with-keywords-and-icons-sketch.jpg') no-repeat center center fixed; 
+      background-size: cover;
+      margin:0; 
+      padding:0; 
+      display:flex; 
+      justify-content:center; 
+      align-items:CENTER; 
+      min-height:100vh; 
+    }
+
+    .register-box {
+      background: rgba(255,255,255,0.95); /* slightly transparent so background shows */
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 350px;
+      margin-top: 50px; /* so it's not stuck to top */
+    }
+    .register-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .register-box label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #444;
+    }
+    .register-box input, .register-box select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .register-box button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .register-box button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-box">
+    <h2>Tutor Registration</h2>
+    <form id="tutorForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" name="mobile" required>
+
+      <label for="qualification">Qualification</label>
+      <select id="qualification" name="qualification" required>
+        <option value="">Select</option>
+        <option value="UG">Undergraduate</option>
+        <option value="PG">Postgraduate</option>
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("tutorForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const mobile = document.getElementById("mobile").value;
+      const qualification = document.getElementById("qualification").value;
+
+      const now = new Date();
+      const dateTime = now.toLocaleString();
+
+      let tutors = JSON.parse(localStorage.getItem("tutors")) || [];
+      tutors.push({ name, mobile, qualification, dateTime });
+      localStorage.setItem("tutors", JSON.stringify(tutors));
+
+      document.getElementById("tutorForm").reset();
+
+      window.location.href = "success.html";
+    });
+  </script>
+</body>
+</html>
+

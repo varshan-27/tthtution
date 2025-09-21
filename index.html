@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trichy Home Tuition</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: url("https://img.freepik.com/free-vector/geometric-science-education-background-vector-gradient-blue-digital-remix_53876-125993.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #222;
+    line-height: 1.6;
+  }
+  body::before {
+    content:"";
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.4); z-index:-1;
+  }
+  header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 30px; color:white; position:relative;
+  }
+  header::before {
+    content:""; position:absolute; inset:0;
+    background: rgba(0,0,0,0.4); z-index:0;
+  }
+  header * { position:relative; z-index:1; }
+  .left-header { display:flex; align-items:center; gap:20px; }
+  header img { width:80px; height:80px; object-fit:cover; border-radius:50%; border:2px solid white; }
+  .info h1 { font-size:2em; margin-bottom:5px; }
+  .info p { font-size:0.95em; color:#f0f0f0; }
+  #dashboardBtn {
+    background:#00bcd4; color:white; padding:10px 15px; border-radius:10px; cursor:pointer; transition:all 0.3s;
+  }
+  #dashboardBtn:hover { background:#0097a7; transform:scale(1.05); }
+
+  .scroll-notice { background:white; color:blue; font-size:18px; font-weight:bold; padding:8px; margin-bottom:10px; border-radius:5px; }
+
+  .section { max-width:1200px; margin:50px auto; padding:20px; }
+  h2 { font-size:1.8em; color:#0097a7; margin-bottom:25px; text-align:center; }
+  .row { display:flex; gap:25px; flex-wrap:wrap; justify-content:center; }
+.card, .register-box {
+  flex:1;
+  min-width:260px;
+  background: linear-gradient(135deg, #ffffff, #f1f8e9);
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+  .card, .register-box {
+    flex:1; min-width:260px; background: linear-gradient(135deg, #ffffff, #f1f8e9);
+    border-radius:20px; padding:25px; box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover, .register-box:hover { transform:translateY(-8px); box-shadow:0 12px 30px rgba(0,0,0,0.18); }
+
+  .card h2 { color:#00796b; margin-bottom:15px; text-align:center; position:relative; }
+  .card h2::after {
+    content:""; display:block; width:50px; height:3px; background:#0097a7; margin:8px auto 0; border-radius:2px;
+  }
+  .card p, .card ul { font-size:1.05em; color:#444; line-height:1.8; text-align:justify; }
+
+  .register-box img { width:100%; height:160px; object-fit:cover; border-radius:15px; margin-bottom:12px; }
+  .register-btn { display:inline-block; margin-top:12px; padding:10px 22px; background:#0097a7; color:white; border-radius:10px; font-weight:bold; transition:all 0.3s; }
+  .register-btn:hover { background:#00796b; transform:scale(1.05); }
+
+  /* COMMENTS */
+  .comment-box { max-height:300px; overflow-y:auto; border:1px solid #b2dfdb; background:#f1f8e9; border-radius:12px; padding:15px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+  .comment-box div { background:#e0f2f1; padding:10px; border-radius:10px; border-left:4px solid #009688; margin-bottom:8px; position:relative; }
+  .comment-email { font-weight:500; font-size:0.85em; color:#00796b; margin-bottom:4px; display:block; }
+  #commentInput, #commentEmail { padding:10px; border:1px solid #b2dfdb; border-radius:8px; }
+  #postComment { background:#009688; color:white; border:none; cursor:pointer; border-radius:8px; padding:0 18px; transition:all 0.3s; }
+  #postComment:hover { background:#00796b; transform:scale(1.05); }
+
+  /* MODALS */
+  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:999; }
+  .modal-content { background:#ffffff; border-radius:20px; padding:30px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.15); position:relative; max-height:90%; overflow-y:auto; }
+  .closeBtn { background:#f44336; color:white; border:none; border-radius:8px; padding:6px 12px; cursor:pointer; }
+  table { width:100%; border-collapse:collapse; margin-top:20px; }
+  th, td { padding:8px; border:1px solid #ccc; text-align:center; }
+  th { background:#009688; color:white; }
+  td { background:#e0f2f1; }
+  .delete-comment-btn, .delete-row-btn { background:#f44336; color:white; border:none; border-radius:6px; cursor:pointer; padding:2px 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="left-header">
+    <img src="https://www.instagram.com/share/p/BBXKn0Afeg" alt="Logo">
+    <div class="info">
+      <h1>Trichy Home Tuition</h1>
+      <p>Sanjeevi nager, Trichy, Tamil Nadu</p>
+      <p>Contact: +91-8668194510</p>
+      <p>Pincode: 620002</p>
+    </div>
+  </div>
+  <div id="dashboardBtn">Dashboard</div>
+</header>
+
+<div class="scroll-notice">
+  <marquee behavior="scroll" direction="left" scrollamount="6">
+    📢 Admission is going on! Register soon to secure your seat. 5+ years of experience. We offer classes for Grades 1–12 across CBSE, State Board, and other curricula.
+  </marquee>
+</div>
+
+<div class="section">
+  <div class="row">
+    <div class="card">
+      <h2>About Us</h2>
+      <p style="color:black; line-height:1.8;">
+        At <b style="color:#00796b;">Trichy Home Tuition 1 to 1</b>, we believe every student learns best with <b style="color:#00796b;">personal attention</b>.  
+        Our <b style="color:#00796b;">one-to-one teaching approach</b> ensures each child receives focused guidance, clear explanations, and individual care tailored to their unique learning style.  
+        We provide home tuition across Trichy for students from <b style="color:#00796b;">Class 1 to 12</b> (State Board, CBSE, ICSE, and others).  
+        Whether it’s building <b style="color:#00796b;">strong basics</b>, improving <b style="color:#00796b;">subject knowledge</b>, or preparing for exams, our tutors are dedicated to helping students achieve <b style="color:#00796b;">academic success with confidence</b>.
+      </p>
+    </div>
+  </div>
+</div>
+
+  <div class="section">
+  <div class="row">
+    <div class="card">
+      <h2>Experience</h2>
+      <ul style="color:black; line-height:1.8;">
+        <li><b style="color:#00796b;">Years of dedicated home tutoring in Trichy:</b> We have helped students from Class 1 to 12 improve their confidence and strengthen their basics.</li>
+        <li><b style="color:#00796b;">One-to-One Guidance:</b> Personalized tutoring ensures each student receives focused attention and effective learning strategies.</li>
+        <li><b style="color:#00796b;">Subject Expertise:</b> Guided students in <b style="color:#00796b;">Mathematics, Science, English</b> to achieve excellent results.</li>
+        <li><b style="color:#00796b;">Proven Results:</b> Students gain confidence, enhance knowledge, and excel academically through our expert tutoring.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="section" id="register">
+  <h2>Registration</h2>
+  <div class="row">
+    <div class="register-box">
+      <img src="https://soeonline.american.edu/wp-content/uploads/sites/3/2019/03/au-blog-refresh-how-to-become-an-online-teacher.jpeg" alt="Online Class">
+      💻 Online Class Registration<br>
+      <a href="form1.html" class="register-btn">Register</a>
+    </div>
+    <div class="register-box">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS85QbolHkT9hLMWRDpi5QYmM53NSvo1fW9pZdxR3lvSX51InMwwr1yxwUHRg366yJZ2Ew&usqp=CAU" alt="Offline Class">
+      📘 Offline Class Registration<br>
+      <a href="form.html" class="register-btn">Register</a>
+    </div>
+<div class="register-box tutor-box">
+   <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Tutor Registration">
+   👨‍🏫 Tutor Registration<br>
+   <a href="form2.html" class="register-btn">Go to Tutor Registration</a>
+</div>
+  </div>
+</div>
+<div class="section">
+  <div class="row">
+    <div class="card">
+      <h2>Why Choose Us?</h2>
+      <ul style="color:black; font-weight:500; line-height:1.8;">
+        <li><strong style="color:#00796b;">Personalized One-to-One Teaching:</strong> Every student receives 100% individual attention for better understanding and faster learning.</li>
+        <li><strong style="color:#00796b;">Qualified & Experienced Tutors:</strong> Our expert tutors bring years of teaching experience and proven results.</li>
+        <li><strong style="color:#00796b;">Flexible Learning Schedules:</strong> Learn at your own pace with convenient timing options to fit your lifestyle.</li>
+        <li><strong style="color:#00796b;">Comprehensive Subject Coverage:</strong> Mathematics, Science, English, Social Studies, and more – all under one roof.</li>
+        <li><strong style="color:#00796b;">Result-Oriented Guidance:</strong> Focused strategies to help students excel academically and achieve their goals.</li>
+		<li><strong style="color:#00796b;">Offline classes available at the student’s home or a common learning place.</strong></li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="section" id="comments">
+  <h2>Comments</h2>
+  <div class="comment-box" id="commentBox"></div>
+  <div style="display:flex; gap:10px; margin-top:12px;">
+    <input type="email" id="commentEmail" placeholder="Your Gmail" required style="flex:1;">
+    <input type="text" id="commentInput" placeholder="Write a comment..." required style="flex:2;">
+    <button id="postComment">&#62;</button>
+  </div>
+</div>
+
+<!-- Head Login Modal -->
+<div class="modal" id="headLoginModal">
+  <div class="modal-content">
+    <button class="closeBtn" id="closeHeadLogin">Close</button>
+    <h2>Head Login</h2>
+    <input type="text" id="headName" placeholder="Name" style="width:90%;margin:10px auto;display:block;">
+    <input type="password" id="secretCode" placeholder="Secret Code" style="width:90%;margin:10px auto;display:block;">
+    <button id="headLoginBtn" style="margin-top:10px; padding:10px 20px; background:#0097a7; color:white; border:none; border-radius:8px; cursor:pointer;">Login</button>
+  </div>
+</div>
+
+<!-- Dashboard Modal -->
+<div class="modal" id="dashboardModal">
+  <div class="modal-content">
+    <button class="closeBtn" id="closeDashboard">Close</button>
+
+    <h2 style="color:#00796b;">Registered Students</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Class</th><th>School</th><th>Board</th><th>Mode</th><th>Date</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="registrationTable"></tbody>
+    </table>
+
+    <h2 style="color:#00796b; margin-top:30px;">Registered Tutors</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Mobile</th><th>Qualification</th><th>Date</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tutorTable"></tbody>
+    </table>
+
+    <h2 style="color:#00796b; margin-top:30px;">Comments</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th><th>Comment</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="dashboardCommentTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MAIN JS (Dashboard, Comments, etc.) -->
+<script>
+/* ---------------- COMMENTS ---------------- */
+let comments = JSON.parse(localStorage.getItem("comments") || "[]");
+let headLoggedIn = false;
+
+/* Show comments on main page (no delete buttons) */
+function showComments() {
+  const box = document.getElementById("commentBox");
+  box.innerHTML = "";
+  comments.forEach(c => {
+    const div = document.createElement("div");
+    const email = document.createElement("span");
+    email.textContent = c.email;
+    email.classList.add("comment-email");
+    const text = document.createElement("p");
+    text.textContent = c.text;
+    div.appendChild(email);
+    div.appendChild(text);
+    box.appendChild(div);
+  });
+}
+showComments();
+
+/* Post new comment */
+document.getElementById("postComment").addEventListener("click", () => {
+  const email = document.getElementById("commentEmail").value.trim();
+  const text = document.getElementById("commentInput").value.trim();
+  if (email && text) {
+    comments.push({ email, text });
+    localStorage.setItem("comments", JSON.stringify(comments));
+    showComments();
+    document.getElementById("commentInput").value = "";
+    document.getElementById("commentEmail").value = "";
+    if (headLoggedIn) populateDashboardComments();
+  }
+});
+
+/* Head login & dashboard */
+const dashboardBtn = document.getElementById("dashboardBtn");
+const headLoginModal = document.getElementById("headLoginModal");
+const dashboardModal = document.getElementById("dashboardModal");
+
+dashboardBtn.onclick = () => headLoginModal.style.display = 'flex';
+document.getElementById("closeHeadLogin").onclick = () => headLoginModal.style.display = 'none';
+document.getElementById("closeDashboard").onclick = () => dashboardModal.style.display = 'none';
+window.onclick = (e) => {
+  if (e.target === headLoginModal) headLoginModal.style.display = 'none';
+  if (e.target === dashboardModal) dashboardModal.style.display = 'none';
+}
+
+document.getElementById("headLoginBtn").onclick = () => {
+  const name = document.getElementById("headName").value.trim();
+  const code = document.getElementById("secretCode").value.trim();
+  const validHeads = [{ name: "Head1", code: "1234" }];
+  if (validHeads.some(h => h.name === name && h.code === code)) {
+    headLoggedIn = true;
+    headLoginModal.style.display = 'none';
+    openDashboard();
+  } else alert("Invalid Name or Secret Code!");
+}
+
+/* Open dashboard & populate tables */
+function openDashboard() {
+  dashboardModal.style.display = 'flex';
+
+  /* Students Table */
+  const registrations = JSON.parse(localStorage.getItem("registrations") || "[]");
+  const regTable = document.getElementById("registrationTable");
+  regTable.innerHTML = "";
+  registrations.forEach((r, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${r.name}</td><td>${r.email}</td><td>${r.phone}</td><td>${r.studentClass}</td><td>${r.schoolName||'-'}</td><td>${r.board||'-'}</td><td>${r.mode}</td><td>${r.date}</td><td>${headLoggedIn?'<button class="delete-row-btn">❌</button>':''}</td>`;
+    if (headLoggedIn) tr.querySelector('.delete-row-btn').onclick = () => {
+      registrations.splice(i, 1);
+      localStorage.setItem("registrations", JSON.stringify(registrations));
+      openDashboard();
+    }
+    regTable.appendChild(tr);
+  });
+
+  /* Tutors Table */
+  const tutors = JSON.parse(localStorage.getItem("tutors") || "[]");
+  const tutorTable = document.getElementById("tutorTable");
+  tutorTable.innerHTML = "";
+  tutors.forEach((t, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${t.name}</td><td>${t.mobile}</td><td>${t.qualification}</td><td>${t.date}</td><td>${headLoggedIn?'<button class="delete-row-btn">❌</button>':''}</td>`;
+    if (headLoggedIn) tr.querySelector('.delete-row-btn').onclick = () => {
+      tutors.splice(i, 1);
+      localStorage.setItem("tutors", JSON.stringify(tutors));
+      openDashboard();
+    }
+    tutorTable.appendChild(tr);
+  });
+
+  /* Comments Table */
+  populateDashboardComments();
+}
+
+/* Dashboard comment delete only */
+function populateDashboardComments() {
+  const dashboardCommentTable = document.getElementById("dashboardCommentTable");
+  dashboardCommentTable.innerHTML = "";
+  comments.forEach((c, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${c.email}</td><td>${c.text}</td><td>${headLoggedIn?'<button class="delete-comment-btn">❌</button>':''}</td>`;
+    if (headLoggedIn) tr.querySelector(".delete-comment-btn").onclick = () => {
+      comments.splice(i, 1);
+      localStorage.setItem("comments", JSON.stringify(comments));
+      populateDashboardComments(); // refresh dashboard
+      showComments(); // refresh main comments (no delete buttons)
+    }
+    dashboardCommentTable.appendChild(tr);
+  });
+}
+</script>
+
+<!-- FIREBASE (separate module script) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDLg6pmz52hL3-PM-5LNWV_RuedxyJUcpc",
+    authDomain: "thttrichy.firebaseapp.com",
+    projectId: "thttrichy",
+    storageBucket: "thttrichy.firebasestorage.app",
+    messagingSenderId: "979908382474",
+    appId: "1:979908382474:web:742869c2f68cb1c24034f3",
+    measurementId: "G-P7ZDR2C1GN"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
